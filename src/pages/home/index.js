@@ -6,6 +6,8 @@ import Recommend from './components/Recommend';
 import Writer from './components/Writer';
 import { connect } from 'react-redux';
 import { getHomeData, toggleTop } from './store/actionCreators';
+import { Button } from '@3alan/ui';
+import '@3alan/ui/dist/index.css';
 
 class Home extends Component {
   componentDidMount() {
@@ -26,17 +28,14 @@ class Home extends Component {
             alt="bannerImg"
           ></img>
           <Topic />
+          <Button type="primary">123</Button>
           <List />
         </HomeLeft>
         <HomeRight>
           <Recommend />
           <Writer />
         </HomeRight>
-        {this.props.showScroll ? (
-          <BackTop onClick={this.scrollToTop}>Top</BackTop>
-        ) : (
-          ''
-        )}
+        {this.props.showScroll ? <BackTop onClick={this.scrollToTop}>Top</BackTop> : ''}
       </HomeWrapper>
     );
   }
@@ -47,7 +46,7 @@ class Home extends Component {
     window.addEventListener('scroll', this.props.listenScroll);
   }
 }
-const mapDispathToProps = (dispatch) => {
+const mapDispathToProps = dispatch => {
   return {
     getHomeData() {
       dispatch(getHomeData());
@@ -58,12 +57,12 @@ const mapDispathToProps = (dispatch) => {
       } else {
         dispatch(toggleTop(false));
       }
-    },
+    }
   };
 };
 
-const mapStateToProps = (state) => ({
-  showScroll: state.getIn(['home', 'showScroll']),
+const mapStateToProps = state => ({
+  showScroll: state.getIn(['home', 'showScroll'])
 });
 
 export default connect(mapStateToProps, mapDispathToProps)(Home);
